@@ -13,6 +13,10 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 # A library for generating fake data such as names, addresses, and phone numbers.
 gem 'faker'
+# Ruby implementation of GraphQL
+gem 'graphql'
+# A query batching executor for the graphql gem
+gem 'graphql-batch'
 
 
 group :development do
