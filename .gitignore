@@ -45,3 +45,4 @@ node_modules/
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+.idea/
