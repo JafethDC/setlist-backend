@@ -36,15 +36,14 @@ group :development do
 
   # Rails >= 3 pry initializer
   gem 'pry-rails'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Step-by-step debugging and stack navigation in Pry
+  gem 'pry-byebug'
 
   # RSpec for Rails-3+
   gem 'rspec-rails', '~> 3.8'

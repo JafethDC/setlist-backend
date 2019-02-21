@@ -3,8 +3,17 @@ require 'csv'
 class CountriesSeeder
   def call
     path = Rails.root.join('lib', 'seeds', 'countries.csv')
-    csv_text = File.read(path)
-    csv = CSV.parse(csv_text, headers: true)
-    p csv.map(&:to_hash)
+    rows = CSV.parse(File.read(path), headers: true)
+    countries = Country.create(
+      rows.map do |country|
+        {
+          code: country['ISO 3166 Country Code'],
+          name: country['Country'],
+          lat: country['Latitude'],
+          lng: country['Longitude']
+        }
+      end
+    )
+    puts "#{countries.length} countries created"
   end
 end
