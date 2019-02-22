@@ -24,6 +24,9 @@ gem 'graphql'
 # A query batching executor for the graphql gem
 gem 'graphql-batch'
 
+# Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+gem 'rack-cors', require: 'rack/cors'
+
 
 group :development do
   # Better error page for Rack apps
