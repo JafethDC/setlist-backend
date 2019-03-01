@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2019_02_20_201842) do
   create_table "attendances", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "setlist_id"
-    t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["setlist_id"], name: "index_attendances_on_setlist_id"
