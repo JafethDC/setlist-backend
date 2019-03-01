@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :festival do
-    name { "MyString" }
-    full_name { "MyString" }
+    name { Faker::FunnyName.name }
+    full_name { Faker::FunnyName.name }
   end
 end

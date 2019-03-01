@@ -57,3 +57,11 @@ MbSeeder.new.call([
                     'Yaeji',
                     'Yves Tumor'
                   ])
+
+FactoryBot.create_list(:venue, 1000)
+FactoryBot.create_list(:user, 1000)
+FactoryBot.create_list(:tour, 50)
+FactoryBot.create_list(:festival, 50)
+FactoryBot.create_list(:setlist, 400)
+FactoryBot.create_list(:attendance, 10_000)
+FactoryBot.create_list(:comment, 5000)

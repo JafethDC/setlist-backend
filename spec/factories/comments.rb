@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    body { "MyText" }
-    user { nil }
-    commentable { nil }
+    body { Faker::Lorem.paragraph(7) }
+    user { User.random }
+    commentable { [Setlist].sample.random }
   end
 end
