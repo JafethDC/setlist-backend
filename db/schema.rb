@@ -77,16 +77,6 @@ ActiveRecord::Schema.define(version: 2019_02_20_201842) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "editions", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "setlist_id"
-    t.date "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["setlist_id"], name: "index_editions_on_setlist_id"
-    t.index ["user_id"], name: "index_editions_on_user_id"
-  end
-
   create_table "festivals", force: :cascade do |t|
     t.string "name"
     t.string "full_name"
@@ -167,8 +157,6 @@ ActiveRecord::Schema.define(version: 2019_02_20_201842) do
   add_foreign_key "attendances", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "comments", "users"
-  add_foreign_key "editions", "setlists"
-  add_foreign_key "editions", "users"
   add_foreign_key "media", "releases"
   add_foreign_key "releases", "artists"
   add_foreign_key "setlists", "artists"
