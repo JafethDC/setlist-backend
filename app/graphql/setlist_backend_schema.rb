@@ -6,3 +6,5 @@ class SetlistBackendSchema < GraphQL::Schema
 
   use GraphQL::Batch
 end
+
+GraphQL::Relay::ConnectionType.bidirectional_pagination = true
