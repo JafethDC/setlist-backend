@@ -1,5 +1,3 @@
-require Rails.root.join('lib', 'music_brains.rb')
-
 class MbSeeder
   def initialize
     @mb = MusicBrains.new(dbname: ENV['MB_DATABASE'], user: ENV['MB_USER'])
@@ -37,6 +35,8 @@ class MbSeeder
     artists = Artist.create(attrs)
     puts "#{artists.length} artists created"
   end
+
+  private
 
   def artists(names)
     artists = @mb.artists(names).uniq { |a| a['name'].downcase }
