@@ -142,11 +142,13 @@ ActiveRecord::Schema.define(version: 2019_03_06_004524) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.string "email"
     t.string "password_digest"
     t.string "reset_token"
     t.datetime "reset_token_expiry"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   create_table "venues", force: :cascade do |t|
