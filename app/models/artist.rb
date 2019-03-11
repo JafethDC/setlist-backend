@@ -10,7 +10,7 @@ class Artist < ApplicationRecord
     def order_by_attendances(direction)
       joins(setlists: :attendances)
         .group(:id)
-        .order("COUNT(attendances.id) #{direction}")
+        .order(Arel.sql("COUNT(attendances.id) #{direction}"))
     end
   end
 end

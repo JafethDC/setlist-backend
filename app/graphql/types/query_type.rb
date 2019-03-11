@@ -2,9 +2,10 @@ module Types
   class QueryType < BaseObject
     field :artists, ArtistsConnection, null: false do
       description 'Return all the artists'
-
       argument :order_by, ArtistOrderType, required: false
     end
+
+    field :me, UserType, null: true
 
     def artists(order_by: nil)
       artists = Artist.all
@@ -15,6 +16,10 @@ module Types
       else
         artists.order("#{order_by.field} #{order_by.direction}")
       end
+    end
+
+    def me
+      context[:current_user]
     end
   end
 end
