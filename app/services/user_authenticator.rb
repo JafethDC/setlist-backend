@@ -11,7 +11,8 @@ class UserAuthenticator
     expiration_time = 1.week.from_now
     {
       token: JsonWebToken.encode({ user_id: user.id }, expiration_time),
-      expiration_time: expiration_time
+      expiration_time: expiration_time,
+      user: user
     }
   end
 end

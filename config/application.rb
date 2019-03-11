@@ -34,8 +34,8 @@ module SetlistBackend
     config.autoload_paths << Rails.root.join('lib')
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        origins ENV['CLIENT_URL']
+        resource '*', headers: :any, methods: %i[get post options], credentials: true
       end
     end
     config.middleware.use ActionDispatch::Cookies

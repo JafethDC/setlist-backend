@@ -5,20 +5,20 @@ module Mutations
     argument :email, String, required: true
     argument :password, String, required: true
 
-    field :session, Types::SessionType, null: true
+    field :user, Types::UserType, null: true
     field :errors, [String], null: true
 
     def resolve(email:, password:)
-      session = UserAuthenticator.new(email, password).call
-      if session.present?
+      result = UserAuthenticator.new(email, password).call
+      if result.present?
         context[:cookies][:token] = {
-          value: session[:token],
-          expires: session[:expiration_time],
+          value: result[:token],
+          expires: result[:expiration_time],
           httponly: true
         }
-        { session: session, errors: [] }
+        { user: result[:user], errors: [] }
       else
-        { session: nil, errors: ['Invalid credentials'] }
+        { user: nil, errors: ['Invalid credentials'] }
       end
     end
   end
