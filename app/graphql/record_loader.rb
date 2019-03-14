@@ -19,7 +19,7 @@ class RecordLoader < GraphQL::Batch::Loader
 
   def query(keys)
     scope = @model
-    scope = scope.where(@where) if @where
+    scope = @where.call(scope) if @where
     scope.where(@column => keys)
   end
 end

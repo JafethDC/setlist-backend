@@ -1,5 +1,13 @@
 module Types
   class ArtistType < Types::BaseObject
+    @attendances_count_params = {
+      where: lambda(&:with_attendances_count)
+    }
+
+    class << self
+      attr_accessor :attendances_count_params
+    end
+
     description 'An artist'
 
     field :id, ID, null: false
@@ -13,7 +21,9 @@ module Types
     end
 
     def attendances_count
-      ArtistAttendancesLoader.for.load(object.id)
+      RecordLoader.for(Artist, ArtistType.attendances_count_params)
+                  .load(object.id)
+                  .then(&:attendances_count)
     end
   end
 end
