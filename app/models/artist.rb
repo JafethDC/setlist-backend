@@ -12,5 +12,11 @@ class Artist < ApplicationRecord
         .group(:id)
         .order(Arel.sql("COUNT(attendances.id) #{direction}"))
     end
+
+    def with_attendances_count
+      select('artists.*', 'COUNT(attendances.id) AS attendances_count')
+        .joins(setlists: :attendances)
+        .group(:id)
+    end
   end
 end
