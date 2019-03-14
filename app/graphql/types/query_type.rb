@@ -7,6 +7,9 @@ module Types
     end
 
     field :me, UserType, null: true
+    field :countries, CountryType.connection_type, null: false
+    field :cities, CityType.connection_type, null: false
+    field :venues, VenueType.connection_type, null: false
 
     def artists(order_by: nil, where: nil)
       artists = Artist.all
@@ -20,7 +23,6 @@ module Types
       end
 
       if where
-        sleep(1)
         artists = artists.where('LOWER(name) LIKE ?', "%#{where.name_contains}%") if where.name_contains
       end
 
@@ -29,6 +31,18 @@ module Types
 
     def me
       context[:current_user]
+    end
+
+    def countries
+      Country.all
+    end
+
+    def cities
+      City.all
+    end
+
+    def venues
+      Venue.all
     end
   end
 end
