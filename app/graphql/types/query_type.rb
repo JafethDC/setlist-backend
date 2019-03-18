@@ -9,7 +9,9 @@ module Types
     field :me, UserType, null: true
     field :countries, CountryType.connection_type, null: false
     field :cities, CityType.connection_type, null: false
-    field :venues, VenueType.connection_type, null: false
+    field :venues, VenueType.connection_type, null: false do
+      argument :where, VenueWhereType, required: false
+    end
 
     def artists(order_by: nil, where: nil)
       artists = Artist.all
@@ -41,8 +43,12 @@ module Types
       City.all
     end
 
-    def venues
-      Venue.all
+    def venues(where: nil)
+      venues = Venue.all
+      if where
+        venues = venues.search_by_full_name(where.full_name_contains) if where.full_name_contains
+      end
+      venues
     end
   end
 end
