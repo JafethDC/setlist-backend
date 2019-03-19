@@ -5,4 +5,9 @@ class Setlist < ApplicationRecord
   belongs_to :venue
   has_many :attendances
   has_many :comments, as: :commentable
+
+  validates :date, presence: true
+  validates :artist, uniqueness: { scope: %i[venue date], message: 'should play once per venue and date' }
+
+  accepts_nested_attributes_for :comments
 end
