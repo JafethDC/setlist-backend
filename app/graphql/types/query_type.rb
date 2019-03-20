@@ -6,6 +6,10 @@ module Types
       argument :where, ArtistWhereType, required: false
     end
 
+    field :setlist, SetlistType, null: true do
+      argument :where, SetlistWhereUniqueType, required: true
+    end
+
     field :me, UserType, null: true
     field :countries, CountryType.connection_type, null: false
     field :cities, CityType.connection_type, null: false
@@ -29,6 +33,10 @@ module Types
       end
 
       artists
+    end
+
+    def setlist(where:)
+      Setlist.find_by(where.to_h)
     end
 
     def me
