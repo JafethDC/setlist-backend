@@ -1,3 +1,5 @@
+require 'csv'
+
 CountriesSeeder.new.call
 CitiesSeeder.new.call
 ArtistType.create(
@@ -5,58 +7,12 @@ ArtistType.create(
     { name: name }
   end
 )
-MbSeeder.new.call([
-                    'Angel Olsen',
-                    'Aphex Twin',
-                    'Beach House',
-                    'Boards of Canada',
-                    'Broken Social Scene',
-                    'CHVRCHES',
-                    'Charlotte Gainsbourg',
-                    'Chromatics',
-                    'Courtney Barnett',
-                    'Crystal Castles',
-                    'Cuco',
-                    'DJ Shadow',
-                    'Death Cab for Cutie',
-                    'Death Grips',
-                    'Disclosure',
-                    'Foals',
-                    'Frank Ocean',
-                    'Girlpool',
-                    'Grimes',
-                    'Grizzly Bear',
-                    'James Blake',
-                    'Jessica Pratt',
-                    'Jorja Smith',
-                    'K.Flay',
-                    'Kanye West',
-                    'Kendrick Lamar',
-                    'LCD Soundsystem',
-                    'Lorde',
-                    'Niños Del Cerro',
-                    'OutKast',
-                    'Panda Bear',
-                    'Phoenix',
-                    'Radiohead',
-                    'Sharon Van Etten',
-                    'Snail Mail',
-                    'St. Vincent',
-                    'Sufjan Stevens',
-                    'Sun Kil Moon',
-                    'The Chemical Brothers',
-                    'The Microphones',
-                    'The National',
-                    'The War On Drugs',
-                    'The xx',
-                    'Toro y Moi',
-                    'Tortoise',
-                    'Travis Scott',
-                    'Tyler, The Creator',
-                    'Wild Nothing',
-                    'Yaeji',
-                    'Yves Tumor'
-                  ])
+
+artists = CSV.parse(
+  File.read(Rails.root.join('lib', 'seeds', 'artists.csv')),
+  headers: true
+)
+MbSeeder.new.call(artists['name'])
 
 FactoryBot.create_list(:venue, 1000)
 FactoryBot.create_list(:user, 1000)
