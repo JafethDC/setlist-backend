@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_06_004524) do
+ActiveRecord::Schema.define(version: 2019_03_21_193534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,13 +103,26 @@ ActiveRecord::Schema.define(version: 2019_03_06_004524) do
     t.index ["artist_id"], name: "index_releases_on_artist_id"
   end
 
+  create_table "setlist_items", force: :cascade do |t|
+    t.bigint "setlist_id"
+    t.integer "type"
+    t.bigint "track_id"
+    t.string "info"
+    t.boolean "is_cover"
+    t.bigint "featuring_artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["featuring_artist_id"], name: "index_setlist_items_on_featuring_artist_id"
+    t.index ["setlist_id"], name: "index_setlist_items_on_setlist_id"
+    t.index ["track_id"], name: "index_setlist_items_on_track_id"
+  end
+
   create_table "setlists", force: :cascade do |t|
     t.bigint "artist_id"
     t.bigint "tour_id"
     t.bigint "festival_id"
     t.bigint "venue_id"
     t.date "date"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "attendances_count"
@@ -168,6 +181,9 @@ ActiveRecord::Schema.define(version: 2019_03_06_004524) do
   add_foreign_key "comments", "users"
   add_foreign_key "media", "releases"
   add_foreign_key "releases", "artists"
+  add_foreign_key "setlist_items", "artists", column: "featuring_artist_id"
+  add_foreign_key "setlist_items", "setlists"
+  add_foreign_key "setlist_items", "tracks"
   add_foreign_key "setlists", "artists"
   add_foreign_key "setlists", "festivals"
   add_foreign_key "setlists", "tours"

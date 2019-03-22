@@ -3,6 +3,8 @@ class Artist < ApplicationRecord
   has_many :releases, dependent: :destroy
   has_many :aliases, class_name: 'ArtistAlias', dependent: :destroy
   has_many :setlists
+  has_many :media, through: :releases
+  has_many :tracks, through: :media
 
   accepts_nested_attributes_for :releases, :aliases
 

@@ -1,4 +1,5 @@
 class Setlist < ApplicationRecord
+  has_many :items, class_name: 'SetlistItem'
   belongs_to :artist, counter_cache: true
   belongs_to :tour, optional: true
   belongs_to :festival, optional: true

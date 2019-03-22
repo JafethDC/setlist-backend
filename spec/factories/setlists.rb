@@ -5,6 +5,11 @@ FactoryBot.define do
     festival { rand(2) ? Festival.random : nil }
     venue { Venue.random }
     date { Faker::Date.backward }
-    content { Faker::Lorem.paragraph(20) }
+
+    factory :setlist_with_items do
+      after(:create) do |setlist|
+        create_list(:setlist_item, rand(15..22), setlist: setlist)
+      end
+    end
   end
 end
