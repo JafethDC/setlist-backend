@@ -2,7 +2,12 @@ FactoryBot.define do
   factory :setlist_item do
     setlist { Setlist.random }
     type { rand(SetlistItem.types.length) }
-    is_cover { rand(2).zero? }
+
+    is_cover do
+      next if SetlistItem.types[:set] == type
+
+      rand(2).zero?
+    end
 
     info do
       next if SetlistItem.types[:set] == type || rand(2).zero?
@@ -11,7 +16,7 @@ FactoryBot.define do
     end
 
     track do
-      next if SetlistItem.types[:set] == type || rand(2).zero?
+      next if is_cover.nil?
 
       artist = is_cover ? Artist.where.not(id: setlist.artist.id).random : setlist.artist
       artist.tracks.random
