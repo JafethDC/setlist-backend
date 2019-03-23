@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_193534) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "setlists_count"
+    t.integer "setlists_count", default: 0
     t.index ["artist_type_id"], name: "index_artists_on_artist_type_id"
   end
 
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_193534) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "attendances_count"
+    t.integer "attendances_count", default: 0
     t.index ["artist_id"], name: "index_setlists_on_artist_id"
     t.index ["festival_id"], name: "index_setlists_on_festival_id"
     t.index ["tour_id"], name: "index_setlists_on_tour_id"
