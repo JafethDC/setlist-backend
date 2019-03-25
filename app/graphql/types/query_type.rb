@@ -10,6 +10,10 @@ module Types
       argument :where, SetlistWhereUniqueType, required: true
     end
 
+    field :tracks, TrackType.connection_type, null: true do
+      argument :where, TrackWhereType, required: false
+    end
+
     field :me, UserType, null: true
     field :countries, CountryType.connection_type, null: false
     field :cities, CityType.connection_type, null: false
@@ -57,6 +61,15 @@ module Types
         venues = venues.search_by_full_name(where.full_name_contains) if where.full_name_contains
       end
       venues
+    end
+
+    def tracks(where: nil)
+      tracks = Track.all
+      if where
+        tracks = tracks.joins(medium: { release: :artist }).where(releases: { artist_id: where.artist_id }) if where.artist_id
+        tracks = tracks.where('LOWER(tracks.name) LIKE ?', "%#{where.name_contains}%") if where.name_contains
+      end
+      tracks
     end
   end
 end
