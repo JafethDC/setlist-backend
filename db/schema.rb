@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_193534) do
     t.string "info"
     t.boolean "is_cover"
     t.bigint "featuring_artist_id"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["featuring_artist_id"], name: "index_setlist_items_on_featuring_artist_id"

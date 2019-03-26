@@ -7,6 +7,7 @@ class CreateSetlistItems < ActiveRecord::Migration[5.2]
       t.string :info
       t.boolean :is_cover
       t.references :featuring_artist, foreign_key: { to_table: :artists }
+      t.integer :position
 
       t.timestamps
     end

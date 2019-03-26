@@ -10,7 +10,7 @@ FactoryBot.define do
     end
 
     info do
-      next if SetlistItem.types[:set] == type || rand(2).zero?
+      next if SetlistItem.types[:set] != type && rand(2).zero?
 
       Faker::Lorem.sentence
     end
