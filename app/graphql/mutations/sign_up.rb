@@ -12,12 +12,14 @@ module Mutations
     field :errors, [String], null: true
 
     def resolve(name:, username:, email:, password:, password_confirmation:)
-      user = User.new(name: name,
-                      username: username,
-                      email: email,
-                      password: password,
-                      password_confirmation: password_confirmation
-                    )
+      user = User.new(
+        name: name,
+        username: username,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      )
+
       if user.save
         { user: user, errors: [] }
       else

@@ -8,6 +8,7 @@ module Types
     field :info, String, null: true
     field :is_cover, Boolean, null: true
     field :featuring_artist, ArtistType, null: true
+    field :position, Integer, null: false
 
     def track
       RecordLoader.for(Track).load(object.track_id)
