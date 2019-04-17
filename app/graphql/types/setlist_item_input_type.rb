@@ -6,5 +6,6 @@ module Types
     argument :info, String, required: false
     argument :is_cover, Boolean, required: false
     argument :featuring_artist_id, Integer, required: false
+    argument :position, Integer, required: true
   end
 end
