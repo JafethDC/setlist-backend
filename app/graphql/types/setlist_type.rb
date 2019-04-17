@@ -21,8 +21,10 @@ module Types
       AssociationLoader.for(Setlist, 'comments').load(object)
     end
 
-    def items
-      AssociationLoader.for(Setlist, 'items').load(object)
-    end
+    # For some reason, this was causing to duplicate the items
+    # during a setlist update
+    # def items
+    #   AssociationLoader.for(Setlist, 'items').load(object)
+    # end
   end
 end
