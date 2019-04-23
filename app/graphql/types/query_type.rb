@@ -6,6 +6,10 @@ module Types
       argument :where, ArtistWhereType, required: false
     end
 
+    field :setlists, SetlistsConnection, null: false do
+      argument :search_query, String, required: false
+    end
+
     field :setlist, SetlistType, null: true do
       argument :where, SetlistWhereUniqueType, required: true
     end
@@ -39,6 +43,12 @@ module Types
       artists
     end
 
+    def setlists(search_query: nil)
+      setlists = Setlist.all
+      setlists = setlists.search(search_query) if search_query
+      setlists
+    end
+
     def setlist(where:)
       Setlist.find_by(where.to_h)
     end
@@ -66,7 +76,9 @@ module Types
     def tracks(where: nil)
       tracks = Track.all
       if where
-        tracks = tracks.joins(medium: { release: :artist }).where(releases: { artist_id: where.artist_id }) if where.artist_id
+        if where.artist_id
+          tracks = tracks.joins(medium: { release: :artist }).where(releases: { artist_id: where.artist_id })
+        end
         tracks = tracks.where('LOWER(tracks.name) LIKE ?', "%#{where.name_contains}%") if where.name_contains
       end
       tracks

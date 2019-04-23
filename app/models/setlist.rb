@@ -12,4 +12,13 @@ class Setlist < ApplicationRecord
 
   accepts_nested_attributes_for :comments
   accepts_nested_attributes_for :items
+
+  SEARCH_AGAINST = %w[artists.name venues.name cities.name countries.name tours.name].freeze
+
+  class << self
+    def search(term)
+      joins(:artist, :tour, venue: { city: :country })
+        .where("LOWER(#{SEARCH_AGAINST.join(' || ')}) LIKE ?", "%#{term.downcase}%")
+    end
+  end
 end
