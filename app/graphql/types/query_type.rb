@@ -8,6 +8,7 @@ module Types
 
     field :setlists, SetlistsConnection, null: false do
       argument :search_query, String, required: false
+      argument :order_by, SetlistOrderType, required: false
     end
 
     field :setlist, SetlistType, null: true do
@@ -43,9 +44,10 @@ module Types
       artists
     end
 
-    def setlists(search_query: nil)
+    def setlists(search_query: nil, order_by: nil)
       setlists = Setlist.all
       setlists = setlists.search(search_query) if search_query
+      setlists = setlists.order("#{order_by.field} #{order_by.direction}") if order_by
       setlists
     end
 

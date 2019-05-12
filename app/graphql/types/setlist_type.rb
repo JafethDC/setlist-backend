@@ -6,6 +6,8 @@ module Types
     field :date, DateType, null: false
     field :artist, ArtistType, null: false
     field :venue, VenueType, null: false
+    field :festival, FestivalType, null: true
+    field :tour, TourType, null: true
     field :comments, [CommentType], null: true
     field :items, [SetlistItemType], null: true
 
@@ -19,6 +21,14 @@ module Types
 
     def comments
       AssociationLoader.for(Setlist, 'comments').load(object)
+    end
+
+    def festival
+      RecordLoader.for(Festival).load(object.festival_id)
+    end
+
+    def tour
+      RecordLoader.for(Tour).load(object.tour_id)
     end
 
     # For some reason, this was causing to duplicate the items
